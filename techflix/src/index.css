@@ -20,9 +20,27 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #141414;
+  /* background: #141414; */
+}
+
+body {
+  --bodyPaddingTop: 94px;
+  padding-top: var(--bodyPaddingTop);
 }
 
 a {
   color: inherit;
+}
+
+#root {
+  min-height: calc(100vh - var(--bodyPaddingTop));
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 800px) {
+  body {
+    --bodyPaddingTop: 40px;
+    padding-top: var(--bodyPaddingTop);
+  }
 }

@@ -1,19 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
 
 import "./Menu.css";
 import Button from "../Button/Button";
-// import ButtonLink from "./components/ButtonLink";
 
 const Menu = () => {
   return (
     <nav className="menu">
-      <a href="/">
+      <Link to="/">
         <img src={logo} className="logo" alt="Techflix Logo"></img>
-      </a>
+      </Link>
 
-      <Button as="a" href={"/"} className={"button-link"}>
-        Novo Vídeo
+      <Button as={Link} to={"/register/video"} className={"button-link"}>
+        New Video
       </Button>
     </nav>
   );

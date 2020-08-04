@@ -1,15 +1,17 @@
 import React from "react";
-import Menu from "./components/Menu/Menu";
+import Menu from "../../components/Menu/Menu";
 
-import Carousel from "./components/Carousel/VideoCardGroup";
-import Footer from "./components/Footer/Footer";
-import BannerMain from "./components/BannerMain/VideoIframeResponsive";
+import Carousel from "../../components/Carousel/Carousel";
+import Footer from "../../components/Footer/Footer";
+import BannerMain from "../../components/BannerMain/VideoIframeResponsive";
 
-import dadosIniciais from "./data/dados_iniciais.json";
+import dadosIniciais from "../../data/dados_iniciais.json";
 
-const App = () => {
+import { HomeContainer } from "./styles";
+
+const Home = () => {
   return (
-    <div>
+    <HomeContainer>
       <Menu />
 
       <BannerMain
@@ -22,10 +24,11 @@ const App = () => {
       <Carousel category={dadosIniciais.categorias[1]} />
       <Carousel category={dadosIniciais.categorias[2]} />
       <Carousel category={dadosIniciais.categorias[3]} />
+      <Carousel category={dadosIniciais.categorias[4]} />
 
       <Footer />
-    </div>
+    </HomeContainer>
   );
 };
 
-export default App;
+export default Home;
