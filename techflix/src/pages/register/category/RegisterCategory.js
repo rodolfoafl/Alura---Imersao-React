@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import PageTemplate from "../../../components/PageTemplate/PageTemplate";
 import FormField from "../../../components/Carousel/components/FormField/FormField";
+import Button from "../../../components/Button/Button";
 
 const RegisterCategory = () => {
   const initialValues = {
@@ -33,6 +34,14 @@ const RegisterCategory = () => {
       color: "",
     });
   };
+
+  useEffect(() => {
+    const URL = " http://localhost:8080/category";
+    fetch(URL).then(async (response) => {
+      const res = await response.json();
+      setCategoriesArray([...res]);
+    });
+  }, []);
 
   return (
     <PageTemplate>
@@ -74,7 +83,7 @@ const RegisterCategory = () => {
           onChange={handleOnChange}
         />
 
-        <button>Register</button>
+        <Button>Register</Button>
       </form>
 
       <ul>
