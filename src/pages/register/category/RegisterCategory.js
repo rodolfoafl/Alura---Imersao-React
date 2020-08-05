@@ -36,7 +36,9 @@ const RegisterCategory = () => {
   };
 
   useEffect(() => {
-    const URL = " http://localhost:8080/category";
+    const URL = window.location.hostname.includes("localhost")
+      ? "http://localhost:8080/category"
+      : "https://react-techflix.herokuapp.com/category";
     fetch(URL).then(async (response) => {
       const res = await response.json();
       setCategoriesArray([...res]);
