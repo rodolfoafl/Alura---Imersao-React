@@ -48,6 +48,7 @@
   text-decoration: none;
   display: inline-block;
   transition: opacity 0.3s;
+  margin-left: 0.5rem;
 }
 .button-link:hover,
 .button-link:focus {

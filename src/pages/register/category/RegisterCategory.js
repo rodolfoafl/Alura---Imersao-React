@@ -1,79 +1,68 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import PageTemplate from "../../../components/PageTemplate/PageTemplate";
-import FormField from "../../../components/Carousel/components/FormField/FormField";
+import FormField from "../../../components/FormField/FormField";
 import Button from "../../../components/Button/Button";
 
+import useForm from "../../../hooks/useForm";
+
+import categoriesRepository from "../../../repositories/categories";
+
 const RegisterCategory = () => {
+  const history = useHistory();
+
   const initialValues = {
     name: "",
     description: "",
     color: "",
   };
 
-  const [newCategory, setNewCategory] = useState(initialValues);
-  const [categoriesArray, setCategoriesArray] = useState([]);
+  //Custom Hook
+  const { newEntry, handleOnChange, clearForm } = useForm(initialValues);
 
-  const handleOnChange = (e) => {
-    setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
-  };
+  const [categoriesArray, setCategoriesArray] = useState([]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    setCategoriesArray([...categoriesArray, newCategory]);
+    // setCategoriesArray([...categoriesArray, newEntry]);
+    categoriesRepository.registerCategory(newEntry).then(() => {
+      history.push("/");
+    });
 
     clearForm();
   };
 
-  const clearForm = () => {
-    setNewCategory({
-      name: "",
-      description: "",
-      color: "",
-    });
-  };
-
   useEffect(() => {
     const URL = window.location.hostname.includes("localhost")
-      ? "http://localhost:8080/category"
-      : "https://react-techflix.herokuapp.com/category";
+      ? "http://localhost:8080/categories"
+      : "https://react-techflix.herokuapp.com/categories";
     fetch(URL).then(async (response) => {
       const res = await response.json();
+      // console.log(res);
       setCategoriesArray([...res]);
     });
   }, []);
 
   return (
-    <PageTemplate>
-      <h1>Register Category: {newCategory.name}</h1>
+    <PageTemplate currentLocation={"category"}>
+      <h1>Register Category: {newEntry.name}</h1>
 
       <form onSubmit={(e) => handleFormSubmit(e)}>
         <FormField
           label="Category Name:"
           name="name"
           type="text"
-          value={newCategory.name}
+          value={newEntry.name}
           onChange={handleOnChange}
         />
-
-        {/* <div>
-          <label>
-            Description:
-            <textarea
-              name="description"
-              value={newCategory.description}
-              onChange={(e) => handleOnChange(e)}
-            ></textarea>
-          </label>
-        </div> */}
 
         <FormField
           label="Category Description:"
           type="textarea"
           name="description"
-          value={newCategory.description}
+          value={newEntry.description}
           onChange={handleOnChange}
         />
 
@@ -81,7 +70,7 @@ const RegisterCategory = () => {
           label="Category Color:"
           type="color"
           name="color"
-          value={newCategory.color}
+          value={newEntry.color}
           onChange={handleOnChange}
         />
 
@@ -94,7 +83,9 @@ const RegisterCategory = () => {
         })}
       </ul>
 
-      <Link to="/">Home</Link>
+      <div style={{ margin: "1rem 0" }}>
+        <Link to="/">Home</Link>
+      </div>
     </PageTemplate>
   );
 };

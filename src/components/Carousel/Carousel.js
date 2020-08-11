@@ -4,8 +4,8 @@ import VideoCard from "./components/VideoCard/VideoCard";
 import Slider, { SliderItem } from "./components/Slider/Slider";
 
 const Carousel = ({ ignoreFirstVideo, category }) => {
-  const categoryTitle = category.titulo;
-  const categoryColor = category.cor;
+  const categoryTitle = category.name;
+  const categoryColor = category.color;
   const categoryExtraLink = category.link_extra;
   const videos = category.videos;
   return (
@@ -29,9 +29,9 @@ const Carousel = ({ ignoreFirstVideo, category }) => {
           }
 
           return (
-            <SliderItem key={video.titulo}>
+            <SliderItem key={video.name}>
               <VideoCard
-                videoTitle={video.titulo}
+                videoTitle={video.name}
                 videoURL={video.url}
                 categoryColor={categoryColor}
               />

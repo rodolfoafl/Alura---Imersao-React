@@ -5,10 +5,10 @@ import Footer from "../Footer/Footer";
 
 import { Main } from "./styles";
 
-const PageTemplate = ({ children }) => {
+const PageTemplate = ({ currentLocation, children }) => {
   return (
     <Fragment>
-      <Menu />
+      <Menu currentLocation={currentLocation} />
       <Main>{children}</Main>
       <Footer />
     </Fragment>
